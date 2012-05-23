@@ -1,0 +1,8 @@
+This is an AP Computer Science final project.  It is a java applet game using the JBox2D physics engine.  The objectives of this project are as follows:
+ - be able to create a simple java applet using the java.awt library.
+ - use the JBox2D physics engine to simulate falling objects
+ - use the git version control system to work and share with others
+
+When completed, this game will have balls falling from the sky where the main character will have to dodge them.  Currently this project has balls rendered by java's awt graphics and simulated by the physics engine.
+
+This project was built in eclipse and can be added to your workspace by downloading the code into a folder named "Box2D-Dodge" in your workspace.
