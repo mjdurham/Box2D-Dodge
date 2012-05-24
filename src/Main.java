@@ -34,6 +34,8 @@ public class Main extends Applet implements Runnable {
     // new array list to hold Ball references
     ArrayList<Ball> balls = new ArrayList<Ball>();
     
+    // create a new player
+    Player character = new Player(); 
     
 	
 	public void init()
@@ -120,6 +122,9 @@ public class Main extends Applet implements Runnable {
 		   if (b.shouldDelete())
 			   itr.remove();
 		}
+		
+		// draw the main character.
+		character.draw(g);
 		
 	}
 	
