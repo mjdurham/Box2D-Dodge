@@ -18,6 +18,10 @@ public class Ball {
 	private World world;
 	private int radius;
 	
+	/*
+	 * This class holds the info for a ball.
+	 * Pass the Box2D world to the constructor.
+	 */
 	Ball (World world){
 		
 		this.world = world;
@@ -42,6 +46,9 @@ public class Ball {
 		body.setLinearVelocity(ballVec);
 	}
 	
+	/*
+	 * This method draws the ball to the screen
+	 */
 	public void DrawBall (Graphics g)
 	{
 		Vec2 position = body.getPosition();
@@ -52,8 +59,13 @@ public class Ball {
 	    
 	}
 	
+	/*
+	 * This method sees if the ball should be removed if it is off screen
+	 * If it returns true then it will be deleted
+	 */
 	public boolean shouldDelete(){
 		if (y > 500){
+			// remove ball from Box2D world before removing Ball instance.
 			world.destroyBody(body);
 			return true;
 		}else{

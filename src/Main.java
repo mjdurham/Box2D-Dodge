@@ -12,53 +12,52 @@ import java.util.Iterator;
 
 public class Main extends Applet implements Runnable {
 	
-	/**
-	 * 
-	 */
-	
-	public static final float RATE = 30;
-	
+	// serial UID for java applet
 	private static final long serialVersionUID = 1L;
 	
-	int x_pos = 10;
-	int y_pos = 100;
-	int radius = 20;
+	// rate to convert meters to pixels in the physics engine
+	public static final float RATE = 30;
 	
+	// counts how many loops are made in the main thread
+	private int counter = 49;
 	
+	// image and graphics used for double buffering
 	private Image dbImage;
 	private Graphics dbg;
 	
 	
-	
+	// variables for the Box2D world
     Vec2 gravity = new Vec2(0.0f, 10.0f);
     boolean doSleep = true;
     World world = new World(gravity, doSleep);
     
+    // new array list to hold Ball references
     ArrayList<Ball> balls = new ArrayList<Ball>();
     
     
 	
 	public void init()
 	{
+		
+		// define size for applet
 		resize(600,400);
 		
 		setBackground (Color.black);
 
 
-	    // Make a Body for the ground via definition and shape binding that gives it a boundary
-	    // 
-	    BodyDef groundBodyDef = new BodyDef(); // body definition
-	    groundBodyDef.position.set(300.0f/RATE, 400.0f/RATE); // set bodydef position
-	    Body groundBody = world.createBody(groundBodyDef); // create body based on definition
-	    PolygonShape groundBox = new PolygonShape(); // make a shape representing ground
-	    groundBox.setAsBox(300.0f/RATE, 0); // shape is a rect: 100 wide, 20 high
-	    groundBody.createFixture(groundBox, 0.0f); // bind shape to ground body
-	    
+	    // add a ground floor to our Box2D world
+	    BodyDef groundBodyDef = new BodyDef();
+	    groundBodyDef.position.set(300.0f/RATE, 400.0f/RATE);
+	    Body groundBody = world.createBody(groundBodyDef);
+	    PolygonShape groundBox = new PolygonShape();
+	    groundBox.setAsBox(300.0f/RATE, 0);
+	    groundBody.createFixture(groundBox, 0.0f);
 
 	}
 
 	public void start ()
 	{
+		// starts a new thread
 		Thread th = new Thread (this);
 		th.start ();
 	}
@@ -79,29 +78,24 @@ public class Main extends Applet implements Runnable {
 		
 		while (true)
 		{
-			x_pos ++;
-
-			
+			counter ++;
 			
 		    // Simulate the world
-		    //
 		    float timeStep = 1.0f / 60.0f;
 		    int velocityIterations = 6;
 		    int positionIterations = 2;
-		    
 		    world.step(timeStep, velocityIterations, positionIterations);
 		    
-//		    System.out.printf("%4.2f %4.2f %4.2f\n", position.x, position.y, angle);
-		    
-		    if (x_pos % 50 == 0)
+		    // add new balls to the world every 50th loop
+		    if (counter % 50 == 0)
 		    	balls.add(new Ball(world));
-
 		    
 		    repaint();
 
+		    // pause for 10 milliseconds
 			try
 			{
-				Thread.sleep (10);
+				Thread.sleep(10);
 			}
 			catch (InterruptedException ex)
 			{
@@ -116,20 +110,20 @@ public class Main extends Applet implements Runnable {
 	public void paint (Graphics g)
 	{
 
-
+		// loop through each ball and call it's draw method
 		Iterator<Ball> itr = balls.iterator();
 		while (itr.hasNext()) {
 		   Ball b = itr.next();
 		   b.DrawBall(g);
-	    	if (b.shouldDelete())
-	    		itr.remove();
-	    	
+		   
+		   // if the ball should be removed then remove it
+		   if (b.shouldDelete())
+			   itr.remove();
 		}
-
 		
 	}
 	
-	
+	// sets up double buffering for graphics
 	public void update (Graphics g)
 	{
 		if (dbImage == null)
