@@ -35,7 +35,7 @@ public class Main extends Applet implements Runnable {
     ArrayList<Ball> balls = new ArrayList<Ball>();
     
     // create a new player
-    Player character = new Player(); 
+    Player character = new Player(world); 
     
 	
 	public void init()
