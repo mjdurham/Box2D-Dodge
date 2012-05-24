@@ -3,7 +3,6 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
-import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
 import java.applet.*;
@@ -36,7 +35,6 @@ public class Main extends Applet implements Runnable {
     World world = new World(gravity, doSleep);
     
     ArrayList<Ball> balls = new ArrayList<Ball>();
-    int[] landscape = new int[13];
     
     
 	
@@ -55,51 +53,7 @@ public class Main extends Applet implements Runnable {
 	    PolygonShape groundBox = new PolygonShape(); // make a shape representing ground
 	    groundBox.setAsBox(300.0f/RATE, 0); // shape is a rect: 100 wide, 20 high
 	    groundBody.createFixture(groundBox, 0.0f); // bind shape to ground body
-
-	    // Make another Body that is dynamic, and will be subject to forces.
-	    //
-//	    BodyDef bodyDef = new BodyDef();
-//	    bodyDef.type = BodyType.DYNAMIC; // dynamic means it is subject to forces
-//	    bodyDef.position.set(225.0f/RATE, 400.0f/RATE);
-//	    body = world.createBody(bodyDef);
-//	    PolygonShape dynamicBox = new PolygonShape();
-//	    dynamicBox.setAsBox(25.0f/RATE, 25.0f/RATE);
-//	    FixtureDef fixtureDef = new FixtureDef(); // fixture def that we load up with the following info:
-//	    fixtureDef.shape = dynamicBox; // ... its shape is the dynamic box (2x2 rectangle)
-//	    fixtureDef.density = 1.0f; // ... its density is 1 (default is zero)
-//	    fixtureDef.friction = 0.3f; // ... its surface has some friction coefficient
-//	    fixtureDef.restitution = 0.4f;
-//	    body.createFixture(fixtureDef); // bind the dense, friction-laden fixture to the body
 	    
-
-	    
-	    landscape[0] = (int) (Math.random() * 200) + 200;
-	    for (int i=1; i<landscape.length; i++){
-	    	do
-	    		landscape[i] =  landscape[i-1] + (int) (Math.random() * 100) - 50;
-	    	while (landscape[i] <= 200 || landscape[i] >= 400);
-	    }
-	    
-	    
-	    BodyDef floor = new BodyDef();
-	    floor.position.set(0, 0);
-	    
-	    Body floorBody = world.createBody(floor);
-	 
-	    PolygonShape shape = new PolygonShape();
-	 
-	    Vec2 p1; 
-	    Vec2 p2;
-	    for (int i=0; i< landscape.length -1; i++) {
-	    	
-	    	
-	    	p1 = new Vec2(i*50/RATE, landscape[i]/RATE);
-	    	p2 = new Vec2((i+1)*50/RATE, landscape[i+1]/RATE);
-	    	shape.setAsEdge(p1, p2);
-	    	FixtureDef fixtureDef = new FixtureDef();
-		    fixtureDef.shape = shape;
-	    	floorBody.createFixture(fixtureDef);
-	    }
 
 	}
 
@@ -170,10 +124,6 @@ public class Main extends Applet implements Runnable {
 	    	if (b.shouldDelete())
 	    		itr.remove();
 	    	
-		}
-		
-		for (int i=0; i<landscape.length-1; i++){
-			g.drawLine(i*50, landscape[i], (i+1)*50, landscape[i+1]);
 		}
 
 		
