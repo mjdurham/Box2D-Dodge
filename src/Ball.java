@@ -40,6 +40,7 @@ public class Ball {
 	    fixtureDef.restitution = 0.8f;
 	    fixtureDef.density = 2.0f;
 	    fixtureDef.friction = 0.3f;
+	    fixtureDef.filter.groupIndex = -1;
 	    body.createFixture(fixtureDef);
 	    
 		Vec2 ballVec = new Vec2((float) (Math.random()*10),0.0f);

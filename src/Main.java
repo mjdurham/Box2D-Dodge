@@ -3,6 +3,7 @@ import org.jbox2d.collision.shapes.PolygonShape;
 import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
+import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
 
 import java.applet.*;
@@ -54,6 +55,24 @@ public class Main extends Applet implements Runnable {
 	    PolygonShape groundBox = new PolygonShape();
 	    groundBox.setAsBox(300.0f/RATE, 0);
 	    groundBody.createFixture(groundBox, 0.0f);
+	    
+	    // wall fixture
+	    FixtureDef fixtureDef = new FixtureDef();
+	    fixtureDef.shape = groundBox;
+	    fixtureDef.density = 2.0f;
+	    fixtureDef.filter.groupIndex = -1;
+	    
+	    // left wall
+	    groundBodyDef.position.set(0.0f/RATE, 350.0f/RATE);
+	    groundBody = world.createBody(groundBodyDef);
+	    groundBox.setAsBox(0, 50.0f/RATE);
+	    groundBody.createFixture(fixtureDef);
+	    
+	    // right wall
+	    groundBodyDef.position.set(600.0f/RATE, 350.0f/RATE);
+	    groundBody = world.createBody(groundBodyDef);
+	    groundBox.setAsBox(0, 50.0f/RATE);
+	    groundBody.createFixture(fixtureDef);
 
 	}
 
