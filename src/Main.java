@@ -8,10 +8,12 @@ import org.jbox2d.dynamics.World;
 
 import java.applet.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Main extends Applet implements Runnable {
+public class Main extends Applet implements Runnable, KeyListener {
 	
 	// serial UID for java applet
 	private static final long serialVersionUID = 1L;
@@ -44,6 +46,7 @@ public class Main extends Applet implements Runnable {
 		
 		// define size for applet
 		resize(600,400);
+		addKeyListener(this);
 		
 		setBackground (Color.black);
 
@@ -163,6 +166,18 @@ public class Main extends Applet implements Runnable {
 		paint (dbg);
 
 		g.drawImage (dbImage, 0, 0, this);
+	}
+
+	public void keyPressed(KeyEvent key) {
+		System.out.println("Pressed: " + key.getKeyChar());
+	}
+
+	public void keyReleased(KeyEvent key) {
+		System.out.println("Released: " + key.getKeyChar());
+	}
+
+	public void keyTyped(KeyEvent key) {
+		System.out.println("Typed: " + key.getKeyChar());
 	}
 	
 
