@@ -43,7 +43,7 @@ public class Ball {
 	    fixtureDef.filter.groupIndex = -1;
 	    body.createFixture(fixtureDef);
 	    
-		Vec2 ballVec = new Vec2((float) (Math.random()*10),0.0f);
+		Vec2 ballVec = new Vec2((float) (Math.random()*8+2),0.0f);
 		body.setLinearVelocity(ballVec);
 	}
 	

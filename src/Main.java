@@ -169,16 +169,14 @@ public class Main extends Applet implements Runnable, KeyListener {
 	}
 
 	public void keyPressed(KeyEvent key) {
-		System.out.println("Pressed: " + key.getKeyChar());
+		character.keyPress(key);
 	}
 
 	public void keyReleased(KeyEvent key) {
-		System.out.println("Released: " + key.getKeyChar());
+		character.keyRelease(key);
 	}
 
-	public void keyTyped(KeyEvent key) {
-		System.out.println("Typed: " + key.getKeyChar());
-	}
+	public void keyTyped(KeyEvent key) {}
 	
 
 }
